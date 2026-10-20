@@ -1,0 +1,47 @@
+================================================================================
+MDR SECURITY ADVISORY: CRITICAL HYBRID DDOS & LAYER 7 EXPLOITATION
+================================================================================
+ID INCIDENTE  : INC-2026-1019-04
+SEVERIDAD    : CRÍTICA (P1)
+CLIENTE      : Global Core Financial Corp.
+TIPO AMENAZA : Hybrid Volumetric DDoS & Application Layer 7 Attack
+SLA STATUS   : Triage completado en menos de 15 minutos (DENTRO DE SLA)
+FECHA/HORA   : 2026-10-19 20:48:00 UTC
+================================================================================
+
+1. RESUMEN EJECUTIVO
+El Centro de Operaciones de Seguridad de MDR (SOC/IR) detectó y contuvo una anomalía masiva simultánea dirigida contra los endpoints del Core Financiero (192.168.10.50). Los atacantes utilizaron tácticas híbridas destructivas en la Capa 3/4 para intentar la degradación del servicio mediante saturación, mientras paralelamente inyectaban payloads maliciosos avanzados de Capa 7 dirigidos a evadir los umbrales de bloqueo tradicionales utilizando rotación dinámica de IPs.
+
+2. DETALLES DE LA TELEMETRÍA Y FIRMAS DETECTADAS
+A través del análisis táctico de paquetes y procesamiento de logs perimetrales, se aislaron las siguientes firmas de ataque:
+
+A. Vectores de Agotamiento de Protocolo (L3/L4):
+   - Inundación Masiva TCP SYN (TCP SYN Flood) dirigida al puerto HTTPS (443).
+   - Ataque de Amplificación y Reflexión UDP abusando de peticiones DNS ANY (puerto fuente 53) con longitudes de paquete anómalas de 1420 bytes para amplificar la saturación del ancho de banda.
+
+B. Vectores de Explotación de Aplicación (L7 - OWASP Top 10):
+   - Inyecciones SQL (SQLi) dirigidas al endpoint transaccional /api/v1/auth/login mediante manipulación de parámetros con firmas clásicas "OR '1'='1" buscando evadir capas de autenticación.
+   - Intento de Lectura de Archivos (Path Traversal) en el endpoint /api/v1/transfer usando patrones de escape de directorios ("../../etc/passwd").
+   - Tráfico automatizado mediante una botnet identificada abusando de User-Agents sintéticos y herramientas de escaneo (sqlmap, Nmap Engine) automatizadas.
+
+3. ACCIONES DE MITIGACIÓN INMEDIATAS (PLAYBOOK DE ACCIÓN PERIMETRAL)
+El equipo MDR ha inyectado de forma automatizada las siguientes contramedidas en el borde perimetral mediante la política perimetral activa (Emergency_Hybrid_DDoS_And_L7_Mitigation):
+
+   - ACCIÓN L3/L4: Activación del modo de protección agresivo mediante parches SYN Cookies en el centro de limpieza Cloud, bloqueando el agotamiento de memoria del servidor web.
+   - ACCIÓN UDP: Drop automático e inmediato de cualquier respuesta UDP estructurada como DNS_REPLY_ANY originada desde puertos externos 53 que superen los 1000 bytes de longitud.
+   - ACCIÓN WAF L7: Implementación de expresiones regulares estrictas en el WAF de nueva generación para denegar (HTTP 403 Forbidden) peticiones SQLi o Path Traversal en los directorios de la API.
+   - ACCIÓN BLACKLIST: Drop total en el firewall perimetral de los nodos principales identificados de la botnet (IoCs):
+     * 185.220.101.5
+     * 45.146.164.12
+     * 193.56.28.94
+     * 91.241.19.82
+     * 141.98.10.43
+
+4. RECOMENDACIONES TÁCTICAS PARA EL EQUIPO DE INGENIERÍA DEL CLIENTE
+   - Verificar de forma prioritaria el estado de CPU y memoria en los balanceadores locales tras la mitigación perimetral.
+   - Auditar los registros de base de datos vinculados al endpoint /api/v1/auth/login para descartar fugas previas a la contención del WAF.
+   - Restringir el acceso externo a los endpoints de la API únicamente a rangos de IP autorizados o a través de integraciones validadas por mTLS si es posible.
+
+================================================================================
+FIN DEL ADVISORY -- MONITOREO CONTINUO ACTIVADO POR EQUIPO MDR SHIFT COMMANDER
+================================================================================

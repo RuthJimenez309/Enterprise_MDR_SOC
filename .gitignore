@@ -1,0 +1,2 @@
+# Ignorar logs de simulación volumétrica masiva generados localmente
+Simulations/*.log

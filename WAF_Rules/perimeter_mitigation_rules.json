@@ -1,0 +1,68 @@
+{
+  "perimeter_security_policy": {
+    "policy_name": "Emergency_Hybrid_DDoS_And_L7_Mitigation",
+    "version": "1.0.0",
+    "status": "ACTIVE",
+    "last_updated_utc": "2026-10-19T20:48:00Z",
+    "layer3_4_mitigation": {
+      "tcp_syn_flood_protection": {
+        "rule_id": "L4-SYN-001",
+        "action": "CHALLENGE_AND_LIMIT",
+        "burst_threshold_pps": 50000,
+        "sustained_threshold_pps": 20000,
+        "syn_cookies": "ENABLED",
+        "description": "Habilitar mitigación agresiva de SYN Cookies ante agotamiento de protocolo TCP"
+      },
+      "dns_amplification_drop": {
+        "rule_id": "L4-UDP-002",
+        "action": "DROP",
+        "protocol": "UDP",
+        "source_port": 53,
+        "min_packet_length_bytes": 1000,
+        "description": "Descarte inmediato de respuestas DNS de gran tamaño en centros de limpieza para mitigar vector de reflexión UDP"
+      }
+    },
+    "layer7_waf_custom_signatures": [
+      {
+        "rule_id": "WAF-SQLI-010",
+        "name": "SQL_Injection_Auth_Exploit_Block",
+        "action": "BLOCK",
+        "severity": "CRITICAL",
+        "match_conditions": {
+          "target_uri": "/api/v1/auth/login",
+          "http_method": "POST",
+          "regex_pattern": "(?i)('|\"|%27|%22)\\s*(or|and)\\s*('|\"|%27|%22)*\\d+('|\"|%27|%22)*\\s*=\\s*('|\"|%27|%22)*\\d+"
+        },
+        "description": "Bloquear intentos de bypass de autenticación por inyección de código SQL"
+      },
+      {
+        "rule_id": "WAF-TRAV-011",
+        "name": "Path_Traversal_API_Block",
+        "action": "BLOCK",
+        "severity": "CRITICAL",
+        "match_conditions": {
+          "target_uri": "/api/v1/transfer",
+          "http_method": "GET",
+          "regex_pattern": "(?i)(\\.\\.\\/|\\.\\.%2f|%2e%2e%2f)"
+        },
+        "description": "Bloquear intentos de lectura de archivos locales del sistema operativo"
+      },
+      {
+        "rule_id": "WAF-BOT-012",
+        "name": "Malicious_Botnet_IP_Reputation_Drop",
+        "action": "DROP",
+        "severity": "HIGH",
+        "match_conditions": {
+          "source_ip_reputation_blacklist": [
+            "185.220.101.5",
+            "45.146.164.12",
+            "193.56.28.94",
+            "91.241.19.82",
+            "141.98.10.43"
+          ]
+        },
+        "description": "Drop inmediato en el borde perimetral para IPs identificadas como nodos activos de la botnet atacante"
+      }
+    ]
+  }
+}
