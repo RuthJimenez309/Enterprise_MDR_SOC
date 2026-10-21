@@ -5,6 +5,6 @@
 * SOAR_Automation/Edge_Containment_SOAR.ps1: Playbook automatizado en PowerShell para la contencion.
 * ZeroTrust_Architecture/api_hardening_policy.json: Especificacion de arquitectura y politica de Circuit Breaker.
 
-## Instrucciones de Ejecucion (Dia 22)
+## Instrucciones de Ejecucion
 Para lanzar la contencion automatizada ejecute desde la raiz:
 . .\SOAR_Automation\Edge_Containment_SOAR.ps1
