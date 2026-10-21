@@ -1,2 +1,15 @@
-# Ignorar logs de simulación volumétrica masiva generados localmente
-Simulations/*.log
+ï»¿# Logs de EjecuciÃ³n y DiagnÃ³stico de Seguridad
+*.log
+*.tmp
+*.bak
+
+# Archivos de Entorno y Credenciales Locales
+.env
+*.local
+credentials.json
+
+# Directorios de Editores e Infraestructura del Sistema
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
