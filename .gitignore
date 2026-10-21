@@ -1,15 +1,9 @@
-﻿# Logs de Ejecución y Diagnóstico de Seguridad
-*.log
+﻿*.log
 *.tmp
 *.bak
-
-# Archivos de Entorno y Credenciales Locales
 .env
 *.local
 credentials.json
-
-# Directorios de Editores e Infraestructura del Sistema
 .vscode/
 .idea/
 .DS_Store
-Thumbs.db
