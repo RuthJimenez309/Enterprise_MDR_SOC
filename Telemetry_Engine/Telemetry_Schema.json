@@ -1,0 +1,72 @@
+﻿[
+  {
+    "EventID": 1001,
+    "Timestamp": "2026-10-21T08:00:00Z",
+    "SessionID": "SESS_ANON_8392A",
+    "ClientIP_Hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "HTTP_Method": "GET",
+    "Request_URI": "/api/v1/financial/balance",
+    "Payload_Size_Bytes": 120,
+    "Forensic_Context": {
+      "ProcessID": 412,
+      "Memory_Region_Shared": false,
+      "Log_Source": "Edge_Ingress"
+    }
+  },
+  {
+    "EventID": 1002,
+    "Timestamp": "2026-10-21T08:01:05Z",
+    "SessionID": "SESS_ANON_8392A",
+    "ClientIP_Hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "HTTP_Method": "GET",
+    "Request_URI": "/api/v1/financial/transactions",
+    "Payload_Size_Bytes": 145,
+    "Forensic_Context": {
+      "ProcessID": 412,
+      "Memory_Region_Shared": false,
+      "Log_Source": "Edge_Ingress"
+    }
+  },
+  {
+    "EventID": 1003,
+    "Timestamp": "2026-10-21T08:02:10Z",
+    "SessionID": "SESS_ANON_9481B",
+    "ClientIP_Hash": "87428fc522803d31065e7bce3cf03fe475096631e5e07bbd7a0fde60c4cf25c7",
+    "HTTP_Method": "POST",
+    "Request_URI": "/api/v1/financial/transfer",
+    "Payload_Size_Bytes": 850000,
+    "Forensic_Context": {
+      "ProcessID": 894,
+      "Memory_Region_Shared": true,
+      "Log_Source": "Edge_Ingress"
+    }
+  },
+  {
+    "EventID": 1004,
+    "Timestamp": "2026-10-21T08:02:11Z",
+    "SessionID": "SESS_ANON_9481B",
+    "ClientIP_Hash": "87428fc522803d31065e7bce3cf03fe475096631e5e07bbd7a0fde60c4cf25c7",
+    "HTTP_Method": "POST",
+    "Request_URI": "/api/v1/financial/transfer",
+    "Payload_Size_Bytes": 920000,
+    "Forensic_Context": {
+      "ProcessID": 894,
+      "Memory_Region_Shared": true,
+      "Log_Source": "Edge_Ingress"
+    }
+  },
+  {
+    "EventID": 1005,
+    "Timestamp": "2026-10-21T08:02:12Z",
+    "SessionID": "SESS_ANON_9481B",
+    "ClientIP_Hash": "87428fc522803d31065e7bce3cf03fe475096631e5e07bbd7a0fde60c4cf25c7",
+    "HTTP_Method": "POST",
+    "Request_URI": "/api/v1/financial/transfer",
+    "Payload_Size_Bytes": 880000,
+    "Forensic_Context": {
+      "ProcessID": 894,
+      "Memory_Region_Shared": true,
+      "Log_Source": "Edge_Ingress"
+    }
+  }
+]
