@@ -1,0 +1,21 @@
+﻿{
+    "TelemetryLog":  [
+                         {
+                             "Endpoint":  "/api/v1/financial/settlements",
+                             "Timestamp":  "2026-10-22 20:24:14",
+                             "SourceIp":  "192.168.142.55",
+                             "Message":  "CORRELACION DETECTADA: Intento de fuerza bruta seguido de acceso directo a Honey-Token Financiero.",
+                             "Severity":  "CRITICAL"
+                         }
+                     ],
+    "MetricsThresholds":  {
+                              "SessionImpersonationWindowSec":  60,
+                              "MaxAuthAttemptsPerMinute":  5
+                          },
+    "HoneyToken":  {
+                       "ResponseDelayMs":  1500,
+                       "AlertSeverity":  "CRITICAL",
+                       "EndpointPath":  "/api/v1/financial/settlements",
+                       "ExpectedMethod":  "POST"
+                   }
+}
